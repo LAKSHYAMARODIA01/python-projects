@@ -1,325 +1,304 @@
-# Lakshya Project - Multi-Task Python Suite
+# Python Projects Suite
 
-Welcome to the **Lakshya Project** repository. This workspace contains three production-grade, standalone Python applications developed to meet beginner and advanced specifications.
+A production-ready collection of modular, standalone Python applications engineered with industry best practices, clean architecture, and robust error handling.
 
-All task folders have been renamed to their actual application names:
-
-| Task | Original Folder | Renamed Folder | Application Name | Key Technologies | External Dependencies |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Task 1** | `task 1` | [`voice-assistant/`](voice-assistant/) | **Aura - Intelligent Voice Assistant** | `speech_recognition`, `pyttsx3`, `requests`, `nltk`, `smtplib` | Yes (`requirements.txt`) |
-| **Task 2** | `task2` | [`password-generator/`](password-generator/) | **Random Password Generator CLI** | `random`, `string`, `sys` | None (Standard Library) |
-| **Task 3** | `task3` | [`chat-application/`](chat-application/) | **Real-Time Multi-Client Chat** | `socket`, `threading`, `datetime` | None (Standard Library) |
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg?style=for-the-badge)](#-prerequisites--quick-start)
+[![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg?style=for-the-badge)](#-contributing)
 
 ---
 
-## 💻 Windows Quick-Start Guide (Prerequisites)
+## 📑 Table of Contents
 
-This guide is optimized for **Windows 10 and Windows 11** using **Command Prompt (CMD)**, **PowerShell**, or **Windows Terminal**.
-
-### 1. Verify Python Installation
-Open **Command Prompt** or **PowerShell** and verify that Python 3.10+ is installed and registered in your system `PATH`:
-
-```cmd
-python --version
-```
-*(If `python` is not recognized, try `py --version`. Ensure **"Add python.exe to PATH"** was checked during Python installation).*
-
-### 2. Enable PowerShell Script Execution (PowerShell Users Only)
-If you plan to use PowerShell and virtual environments, ensure script execution is enabled:
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
+- [Overview](#-overview)
+- [Projects Matrix](#-projects-matrix)
+- [Prerequisites & Quick Start](#-prerequisites--quick-start)
+- [Projects](#-projects)
+  - [1. Aura - Intelligent Voice Assistant](#1--aura---intelligent-voice-assistant)
+  - [2. Random Password Generator CLI](#2--random-password-generator-cli)
+  - [3. Real-Time Multi-Client Chat](#3--real-time-multi-client-chat)
+- [Repository Structure](#-repository-structure)
+- [Troubleshooting & FAQ](#-troubleshooting--faq)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
-## 🎙️ Task 1: Intelligent Voice Assistant (`voice-assistant`)
+## 🌟 Overview
 
-### Overview
-**Aura** is a modular Python voice assistant featuring:
-- **Speech Recognition & Text-to-Speech:** Uses Google Speech Recognition (STT) and Windows native SAPI5 text-to-speech engine via `pyttsx3`.
-- **Text & Mute Fallbacks:** Run fully in terminal text mode (`--text`) or mute voice audio (`--mute`).
-- **Core Commands:** Conversational greetings, live time, date, and Google web searches.
-- **Live Weather Updates:** Weather reports for any city using OpenWeatherMap or automatic wttr.in fallback.
-- **Background Reminders:** Non-blocking countdown reminders with audible and visual alerts.
-- **Email Sending:** Send emails using Python's `smtplib` (includes safe test/mock mode enabled by default).
-- **Knowledge QA:** Wikipedia summary lookup for historical and technical questions.
-- **Custom Commands:** Persistent JSON-backed custom command manager (`custom_commands.json`).
-- **Automated Feature Demo:** Automated end-to-end demonstration mode (`--demo`).
+This repository showcases three diverse, fully decoupled Python implementations spanning Natural Language Processing & Speech, CLI Security Utilities, and Low-Level Network Concurrency:
+
+1. **Aura Voice Assistant:** Modular speech-to-text and natural language command executor with multi-modal fallback (voice/text/silent).
+2. **Password Generator CLI:** Cryptographically sound, rule-enforced password generation utility with interactive terminal interface.
+3. **Multi-Client Chat System:** Thread-safe TCP socket server and interactive client supporting real-time concurrent messaging.
 
 ---
 
-### Windows Setup & Execution
+## 📊 Projects Matrix
 
-#### Step 1: Open Terminal & Navigate to the Directory
-In **Command Prompt** or **PowerShell**:
-```cmd
-cd voice-assistant
+| Project | Directory | Focus Domain | Key Technologies | External Dependencies |
+| :--- | :--- | :--- | :--- | :--- |
+| **Aura Voice Assistant** | [`voice-assistant/`](voice-assistant/) | Voice Automation & NLU | `SpeechRecognition`, `pyttsx3`, `requests`, `nltk` | Yes (`requirements.txt`) |
+| **Password Generator** | [`password-generator/`](password-generator/) | Security & CLI Utility | `random`, `string`, `sys` | None (Standard Library) |
+| **Real-Time Chat** | [`chat-application/`](chat-application/) | Networking & Concurrency | `socket`, `threading`, `datetime` | None (Standard Library) |
+
+---
+
+## 💻 Prerequisites & Quick Start
+
+Ensure **Python 3.10 or higher** is installed and accessible from your terminal:
+
+```bash
+# Verify Python version
+python --version   # or: py --version / python3 --version
 ```
 
-#### Step 2: Create and Activate Virtual Environment
-- **Using Command Prompt (CMD):**
-  ```cmd
-  python -m venv venv
-  venv\Scripts\activate.bat
-  ```
+### Clone the Repository
 
-- **Using PowerShell:**
-  ```powershell
-  python -m venv venv
-  .\venv\Scripts\Activate.ps1
-  ```
-
-*(Your prompt will now show `(venv)` indicating the virtual environment is active).*
-
-#### Step 3: Install Required Dependencies
-```cmd
-pip install -r requirements.txt
-```
-
-> [!TIP]
-> **Windows PyAudio Installation Note:**
-> On Windows, `pip install pyaudio` installs pre-compiled binary wheels out of the box for Python 3.10, 3.11, and 3.12. If you do not have a microphone connected or prefer typing, you can run the assistant anytime using `--text` mode without needing PyAudio or a microphone!
-
-#### Step 4: Configure Environment Variables (Optional)
-A `.env.example` file is included. Create your local `.env`:
-- **Command Prompt:**
-  ```cmd
-  copy .env.example .env
-  ```
-- **PowerShell:**
-  ```powershell
-  Copy-Item .env.example .env
-  ```
-You can edit `.env` using Notepad (`notepad .env`) to set your assistant name, OpenWeatherMap API key, or SMTP email credentials. By default, `MOCK_EMAIL=true` is enabled so email testing is completely safe and requires no real credentials.
-
-#### Step 5: Run the Assistant
-
-- **Voice Mode (Default - Speak into microphone):**
-  ```cmd
-  python main.py
-  ```
-
-- **Interactive Text Mode (Recommended for testing or quiet environments):**
-  ```cmd
-  python main.py --text
-  ```
-
-- **Text Mode with Muted Speech (Silent Terminal Output):**
-  ```cmd
-  python main.py --text --mute
-  ```
-
-- **Automated End-to-End Demo (Runs all features automatically):**
-  ```cmd
-  python main.py --demo
-  ```
-
-#### Step 6: Run Unit Tests
-```cmd
-python -m unittest discover tests
+```bash
+git clone https://github.com/<your-username>/python-projects.git
+cd python-projects
 ```
 
 ---
 
-### Example Voice / Text Prompts
-- `"Hello"` / `"Hi Aura"`
-- `"What time is it?"`
-- `"What is today's date?"`
-- `"Search for Alan Turing"`
-- `"What is the weather in London?"` / `"Weather in Tokyo"`
-- `"Remind me in 10 seconds to drink water"`
-- `"Send an email to alex@example.com with subject Project Demo and body Hello world"`
-- `"Who was Ada Lovelace?"`
-- `"List custom commands"`
-- `"Tell me a joke"`
-- `"Goodbye"` / `"Exit"`
+## 🚀 Projects
+
+### 1. 🎙️ Aura - Intelligent Voice Assistant
+
+> **Directory:** [`voice-assistant/`](voice-assistant/)
+
+A modular, extensible voice assistant that processes natural language voice or text commands, interacts via speech synthesis, and automates common daily tasks.
+
+#### Key Features
+- **Dual Mode Operation:** Runs seamlessly in standard **Voice Mode** (microphone input) or **Interactive Text Mode** (`--text`) for silent/headless environments.
+- **Speech Synthesis & Mute Option:** Windows SAPI5 / cross-platform text-to-speech engine with silence support (`--mute`).
+- **Natural Language Parsing:** Intent detection powered by token analysis and rule-based NLU heuristics.
+- **Dynamic Capabilities:**
+  - 🕒 Live time, date, and calendar reporting
+  - 🌐 Google Search queries and instant Wikipedia summary retrieval
+  - 🌦️ Real-time weather reporting via OpenWeatherMap (with auto fallback to `wttr.in`)
+  - ⏰ Background non-blocking timers and audible reminder alerts
+  - 📧 Automated email dispatch via `smtplib` (includes safe mock mode by default)
+  - ⚙️ User-defined custom command registry backed by persistent JSON (`custom_commands.json`)
+  - 🧪 Automated feature tour via demo mode (`--demo`)
+
+#### Setup & Execution
+
+1. **Navigate to the module directory:**
+   ```bash
+   cd voice-assistant
+   ```
+
+2. **Create and activate a virtual environment:**
+   - **Windows (PowerShell):**
+     ```powershell
+     python -m venv venv
+     .\venv\Scripts\Activate.ps1
+     ```
+   - **Windows (Command Prompt):**
+     ```cmd
+     python -m venv venv
+     venv\Scripts\activate.bat
+     ```
+   - **macOS / Linux:**
+     ```bash
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Environment Configuration (Optional):**
+   Copy the example environment configuration:
+   ```bash
+   # Windows (CMD / PowerShell)
+   copy .env.example .env
+
+   # Linux / macOS
+   cp .env.example .env
+   ```
+   *Modify `.env` to configure assistant name, custom OpenWeatherMap API keys, or SMTP email parameters. By default, `MOCK_EMAIL=true` ensures safe execution without exposing real credentials.*
+
+5. **Run the Assistant:**
+   ```bash
+   # Standard Voice Mode (Speak into your microphone)
+   python main.py
+
+   # Interactive Text Mode (Type commands in terminal)
+   python main.py --text
+
+   # Silent Mode (Text input and terminal output only, no audio)
+   python main.py --text --mute
+
+   # Automated Feature Demo
+   python main.py --demo
+   ```
+
+6. **Run Test Suite:**
+   ```bash
+   python -m unittest discover tests
+   ```
 
 ---
 
-## 🔐 Task 2: Random Password Generator (`password-generator`)
+### 2. 🔐 Random Password Generator CLI
 
-### Overview
-A robust, interactive command-line password generator that meets strict security and validation requirements:
-- **Configurable Length:** Supports any password length (enforces a minimum of 8 characters).
-- **Character Pool Selection:** Toggle uppercase (`A-Z`), lowercase (`a-z`), digits (`0-9`), and punctuation symbols (`!@#$%...`).
-- **Strict Validation:** Requires at least 2 character types to ensure password strength.
-- **Guaranteed Inclusion:** Ensures at least one character from each selected category is included, then shuffles characters randomly.
-- **Looping CLI:** Generate multiple passwords in a single session without restarting.
-- **Zero External Dependencies:** Built entirely with Python's built-in standard library (`random`, `string`, `sys`).
+> **Directory:** [`password-generator/`](password-generator/)
 
----
+A secure command-line tool for generating customizable passwords adhering to complexity constraints and cybersecurity recommendations.
 
-### Windows Setup & Execution
+#### Key Features
+- **Strict Complexity Enforcement:** Requires at least 2 distinct character categories and enforces an 8-character minimum length.
+- **Customizable Character Sets:** Granular control over inclusion of Uppercase (`A-Z`), Lowercase (`a-z`), Digits (`0-9`), and Symbols (`!@#$%...`).
+- **Guaranteed Entropy:** Guarantees minimum representation of each selected character category before applying cryptographic shuffling.
+- **Continuous Session:** Allows repeated password generation within a single interactive session.
+- **Zero External Dependencies:** Implemented purely with Python standard libraries (`random`, `string`, `sys`).
 
-#### Step 1: Navigate to the Directory
-In **Command Prompt** or **PowerShell**:
-```cmd
-cd password-generator
-```
+#### Setup & Execution
 
-#### Step 2: Run the Script
-No external libraries or virtual environment required! Simply run:
-```cmd
-python password_generator.py
-```
+1. **Navigate to the module directory:**
+   ```bash
+   cd password-generator
+   ```
 
-#### Step 3: Interactive Walkthrough
-1. Enter the desired password length (e.g., `16`).
-2. Answer `y` or `n` to include:
-   - Uppercase letters (`A-Z`)
-   - Lowercase letters (`a-z`)
-   - Numbers (`0-9`)
-   - Special symbols (`!@#$%^&*...`)
-3. The generated password will be displayed with length confirmation:
+2. **Execute the generator:**
+   ```bash
+   python password_generator.py
+   ```
+
+3. **Sample Interactive Walkthrough:**
    ```text
+   ==================================================
+              RANDOM PASSWORD GENERATOR
+   ==================================================
+   Enter total password length (min: 8): 14
+   Include Uppercase letters? (y/n): y
+   Include Lowercase letters? (y/n): y
+   Include Numbers? (y/n): y
+   Include Special Symbols? (y/n): y
+
    --------------------------------------------------
    Generated Password:
-     >>> k(cYwv8N|+VF <<<
-   Length: 12 characters
+     >>> k(cYwv8N|+VF9Q <<<
+   Length: 14 characters
    --------------------------------------------------
+   Generate another password? (y/n): n
    ```
-4. Choose whether to generate another password or exit.
 
 ---
 
-## 💬 Task 3: Real-Time Multi-Client Chat Application (`chat-application`)
+### 3. 💬 Real-Time Multi-Client Chat
 
-### Overview
-A real-time, multi-threaded client-server chat system using low-level TCP sockets:
-- **Server (`server.py`):**
-  - Listens for incoming TCP connections.
-  - Handles concurrent clients using multi-threading (`threading.Thread`).
-  - Broadcasts messages to all connected clients in real-time.
-  - Automatically detects client disconnects and notifies peers.
-  - Thread-safe client connection management with `threading.Lock`.
-- **Client (`client.py`):**
-  - Connects to the server over TCP.
-  - Background worker thread listens for incoming messages without blocking user input.
-  - Formats messages with clean `[HH:MM]` timestamps.
-  - Graceful exit via `/quit` or `Ctrl + C`.
-- **Zero External Dependencies:** Built entirely using Python standard libraries (`socket`, `threading`, `sys`, `argparse`, `datetime`).
+> **Directory:** [`chat-application/`](chat-application/)
 
----
+A client-server messaging architecture built on low-level TCP sockets, enabling concurrent multi-user group chat in real-time.
 
-### Windows Setup & Execution (Multi-Terminal Walkthrough)
+#### Key Features
+- **Concurrent Connection Handling:** Multi-threaded server assigns dedicated client listener threads for seamless bidirectional communication.
+- **Real-Time Broadcast Engine:** Thread-safe relay mechanism delivers broadcast messages across all active sessions with low latency.
+- **Graceful Lifecycle Management:** Detects disconnects, cleans up socket descriptors, and notifies remaining participants.
+- **Timestamped Formatting:** Automatically prefixes broadcast communications with clean time indicators (`[HH:MM]`).
+- **Standard Library Only:** Zero external dependencies; built using `socket`, `threading`, and `datetime`.
 
-To simulate a real-time chat room, open **at least 2 or 3 separate terminal windows** (Command Prompt, PowerShell, or Windows Terminal tabs).
+#### Multi-Terminal Execution Guide
 
-#### Step 1: Start the Chat Server (Terminal 1)
-```cmd
+Open at least two terminal windows to observe client-server communication:
+
+#### Terminal 1 — Start Server
+```bash
 cd chat-application
 python server.py
 ```
-*Expected Server Output:*
-```text
-============================================================
-           REAL-TIME CHAT SERVER (ACTIVE)
-============================================================
-Server listening on 127.0.0.1:5000
-Press Ctrl+C to shut down the server safely.
-============================================================
-```
+*Server binds to `127.0.0.1:5000` by default.*
 
-> [!NOTE]
-> **Windows Defender Firewall Alert:**
-> If Windows Firewall prompts a popup asking to allow Python network access, click **"Allow access"** for Private networks.
-
----
-
-#### Step 2: Start Client 1 - Alice (Terminal 2)
-Open a new terminal window:
-```cmd
+#### Terminal 2 — Connect Client 1 (e.g., Alice)
+```bash
 cd chat-application
 python client.py -u Alice
 ```
-*(Or run `python client.py` and enter your username when prompted).*
 
----
-
-#### Step 3: Start Client 2 - Bob (Terminal 3)
-Open another terminal window:
-```cmd
+#### Terminal 3 — Connect Client 2 (e.g., Bob)
+```bash
 cd chat-application
 python client.py -u Bob
 ```
 
----
-
-#### Step 4: Chat in Real-Time!
-- In **Alice's window**, type: `Hello Bob!` and press **Enter**.
-- In **Bob's window**, the message appears instantly:
-  ```text
-  [12:15] Alice: Hello Bob!
+#### Commands & Options
+- **Exit Room:** Send `/quit` or press `Ctrl + C` to disconnect gracefully.
+- **Custom Host & Port:**
+  ```bash
+  python server.py --host 0.0.0.0 --port 6000
+  python client.py --host 127.0.0.1 --port 6000 -u Alice
   ```
-- In **Bob's window**, type: `Hey Alice! How are you?` and press **Enter**.
-- Alice's window updates immediately with the response.
-
-#### Step 5: Disconnect
-To exit a client chat session cleanly:
-- Type `/quit` and press **Enter**, or press `Ctrl + C`.
-- The server and other connected clients will be notified that the user has left.
-
-#### Custom Host and Port Configuration
-By default, the server binds to `127.0.0.1:5000`. You can customize the port:
-```cmd
-python server.py --port 6000
-python client.py -u Alice --port 6000
-```
-
-#### Optional: Local Area Network (LAN) Chat on Windows
-To chat between two different computers connected to the same Wi-Fi router:
-1. Find the host computer's IPv4 address by running `ipconfig` in Command Prompt (e.g., `192.168.1.50`).
-2. On Host PC, run:
-   ```cmd
-   python server.py --host 0.0.0.0 --port 5000
-   ```
-3. On other PCs on the same Wi-Fi, run:
-   ```cmd
-   python client.py --host 192.168.1.50 --port 5000 -u YourName
-   ```
 
 ---
 
-## 🛠️ Windows Troubleshooting Guide
-
-| Issue | Cause | Solution |
-| :--- | :--- | :--- |
-| `'python' is not recognized as an internal or external command` | Python was installed without checking "Add python.exe to PATH" | Re-run Python installer, choose "Modify", and check **"Add Python to environment variables"**; or use the Windows Python launcher `py`. |
-| `File ... cannot be loaded because running scripts is disabled` | PowerShell default execution policy blocks virtual environment activation script | In PowerShell (as current user), run: `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` |
-| `error: Microsoft Visual C++ 14.0 or greater is required` when installing PyAudio | No C++ compiler installed for PyAudio compilation from source | PyAudio wheels exist for Python 3.10-3.12. Ensure you have 64-bit Python, or simply run the assistant in text mode: `python main.py --text`. |
-| `Address already in use` error in Chat Server | Another process is already using port 5000 | Specify an alternate port: `python server.py --port 5500` and `python client.py --port 5500`. |
-| Microphone not capturing speech | Windows microphone privacy permission disabled | Open **Windows Settings > Privacy & Security > Microphone**, enable **"Let apps access your microphone"**, and ensure desktop apps have access. |
-
----
-
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```text
-lakshya project/
+python-projects/
 │
-├── README.md                           # Main documentation and Windows guide
+├── README.md                           # Master project documentation
 │
-├── voice-assistant/                    # Task 1: Intelligent Voice Assistant (Aura)
-│   ├── assistant/                      # Core assistant package
-│   │   ├── actions.py                  # Action execution (weather, reminders, email, search)
-│   │   ├── audio.py                    # C-level stderr audio suppression
-│   │   ├── config.py                   # Configuration and environment loader
-│   │   ├── custom_cmds.py              # Persistent custom commands management
-│   │   ├── nlu.py                      # Natural language understanding and intent parsing
-│   │   └── speech.py                   # Speech-to-text (STT) and text-to-speech (TTS)
+├── voice-assistant/                    # Project 1: Intelligent Voice Assistant (Aura)
+│   ├── assistant/                      # Modular assistant package
+│   │   ├── __init__.py                 # Package initializer
+│   │   ├── actions.py                  # Task handlers (weather, email, reminder, search)
+│   │   ├── audio.py                    # C-level audio stream & stderr management
+│   │   ├── config.py                   # Environment and settings parser
+│   │   ├── custom_cmds.py              # Persistent custom command registry
+│   │   ├── nlu.py                      # Rule-based Natural Language Understanding
+│   │   └── speech.py                   # Speech-to-Text and Text-to-Speech engines
 │   ├── tests/                          # Automated unit test suite
-│   │   ├── test_actions.py             # Action handler unit tests
-│   │   ├── test_custom_cmds.py         # Custom command storage tests
-│   │   └── test_nlu.py                 # NLU intent parser tests
-│   ├── custom_commands.json            # Persistent custom command definitions
-│   ├── .env.example                    # Sample environment configuration template
-│   ├── requirements.txt                # Python package dependencies
+│   │   ├── __init__.py                 # Test package initializer
+│   │   ├── test_actions.py             # Action execution unit tests
+│   │   ├── test_custom_cmds.py         # Custom command persistence tests
+│   │   └── test_nlu.py                 # NLU intent parsing tests
+│   ├── custom_commands.json            # Dynamic user command registry
+│   ├── .env.example                    # Template environment variable configuration
+│   ├── requirements.txt                # External package dependencies
 │   └── main.py                         # Voice Assistant CLI entry point
 │
-├── password-generator/                 # Task 2: Random Password Generator CLI
-│   └── password_generator.py           # Self-contained password generator script
+├── password-generator/                 # Project 2: Password Generator CLI
+│   └── password_generator.py           # Interactive password generation script
 │
-└── chat-application/                   # Task 3: Real-Time Multi-Client Chat
-    ├── server.py                       # Multi-threaded TCP chat server
+└── chat-application/                   # Project 3: Real-Time Multi-Client Chat
+    ├── server.py                       # Multi-threaded TCP broadcast server
     └── client.py                       # Interactive TCP chat client
 ```
+
+---
+
+## 🛠️ Troubleshooting & FAQ
+
+| Problem | Root Cause | Recommended Fix |
+| :--- | :--- | :--- |
+| `python : The term 'python' is not recognized` | Python is not registered in system environment variables (`PATH`) | Re-run Python installer, select **Modify**, and check **"Add Python to PATH"**; or invoke via `py` on Windows / `python3` on Unix. |
+| `PSSecurityException: File cannot be loaded` | PowerShell execution policy restricts running activation scripts | Run `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` in PowerShell. |
+| `error: Microsoft Visual C++ 14.0 is required` | PyAudio wheel compilation triggered due to missing binary wheels | PyAudio provides pre-built wheels for Python 3.10-3.12 (64-bit). Alternatively, run the assistant in text mode: `python main.py --text`. |
+| `OSError: [Errno 98/10048] Address already in use` | Another process is holding port `5000` | Start server on an alternate port: `python server.py --port 5050` and point clients accordingly: `python client.py --port 5050`. |
+| Microphone fails to detect input | OS privacy policy prevents terminal microphone access | Check system Privacy & Security settings and ensure microphone access is granted for command-line tools / apps. |
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature suggestions are welcome!
+
+1. **Fork** the repository
+2. **Create** your feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'feat: add AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
+
+---
+
+## 📄 License
+
+This repository is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute this software in accordance with the license conditions.
