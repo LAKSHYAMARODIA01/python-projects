@@ -58,7 +58,7 @@ python --version   # or: py --version / python3 --version
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/python-projects.git
+git clone https://github.com/LAKSHYAMARODIA01/python-projects.git
 cd python-projects
 ```
 
